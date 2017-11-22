@@ -210,7 +210,9 @@ def keysIn2D(D, L1, L2):
     >>> keysIn2D({'xanadu': 'kubla khan'}, ['in', 'xanadu'], ['did', 'kubla khan'])
     True
     """
-    
+    if L1[-1] in D and L2[-1] in D[L1[-1]]:
+        return True
+    return False
     pass
 
 class warmup(object):
@@ -226,6 +228,7 @@ class warmup(object):
         >>> w.bandName
         'The Beatles'
         """
+        self.bandName = 'The Beatles'
         pass
 
     def setAlbum(self, album):
@@ -239,6 +242,7 @@ class warmup(object):
         >>> w.album
         'Abbey Road'
         """
+        self.album = album
         pass
 
     def printAlbum(self):
@@ -252,8 +256,8 @@ class warmup(object):
         >>> w.printAlbum()
         'Twist and Shout by The Beatles'
         """
+        return self.album + " by " + self.bandName
         pass
-
 
 ###############################################################################
 # Main
