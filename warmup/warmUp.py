@@ -37,6 +37,9 @@ def keyInDict(D, K):
     >>> keyInDict(coleridge, 'decree')
     False
     """
+    if K in D:
+        return True
+    return False
     pass
 
 def returnKeyVal(D, K):
@@ -50,6 +53,7 @@ def returnKeyVal(D, K):
     >>> returnKeyVal(coleridge, 'decree')
     {}
     """
+    return D[K]
     pass
 
 def setKeyVal(D, K, V):
@@ -63,6 +67,8 @@ def setKeyVal(D, K, V):
     >>> setKeyVal({'through': 'caverns'}, 'measureless', 'to man') == {'through': 'caverns', 'measureless': 'to man'}
     True
     """
+    D[K] = V
+    return D
     pass
 
 def setKeyValList(D, K, V1, V2, V3, V4):
@@ -75,6 +81,8 @@ def setKeyValList(D, K, V1, V2, V3, V4):
     >>> setKeyValList({}, 'down', 'to', 'a', 'sunless', 'sea') == {'down': ['to', 'a', 'sunless', 'sea']}
     True
     """
+    D[K] = [V1, V2, V3, V4]
+    return D
     pass
 
 def asciiAssociate():
@@ -89,8 +97,16 @@ def asciiAssociate():
     True
     """
     # You may find this useful
+    asciiDict = {}
+    j = 97
     from string import ascii_lowercase as alphabet
+    for i in alphabet:
+        asciiDict[i] = j
+        j += 1
+    return asciiDict
     pass
+
+
 
 def getColor(favoriteColors, name):
     """
@@ -105,6 +121,7 @@ def getColor(favoriteColors, name):
     >>> getColor({'Coleridge': ['green']}, 'Coleridge')
     'green'
     """
+    return favoriteColors[name][0]
     pass
 
 def translate(vocab, word, language):
@@ -121,6 +138,7 @@ def translate(vocab, word, language):
     >>> translate({'river': {'Spanish': 'rio', 'French': 'riviere'}}, 'river', 'French')
     'riviere'
     """
+    return vocab[word][language]
     pass
 
 def nestedDictionary():
@@ -133,6 +151,11 @@ def nestedDictionary():
     >>> nestedDictionary() == {'a': {}, 'b': {}, 'c': {}, 'd': {}, 'e': {}, 'f': {}, 'g': {}, 'h': {}, 'i': {}, 'j': {}, 'k': {}, 'l': {}, 'm': {}, 'n': {}, 'o': {}, 'p': {}, 'q': {}, 'r': {}, 's': {}, 't': {}, 'u': {}, 'v': {}, 'w': {}, 'x': {}, 'y': {}, 'z': {}}
     True
     """
+    D = {}
+    from string import ascii_lowercase as alphabet
+    for i in alphabet:
+        D[i] = {}
+    return D
     pass
 
 def nestedDictionary3D(L1, L2):
@@ -148,7 +171,16 @@ def nestedDictionary3D(L1, L2):
     >>> nestedDictionary3D(['dolphin', 'panda'], ['diet', 'habitat']) == {'dolphin': {'diet': {}, 'habitat': {}}, 'panda': {'diet': {}, 'habitat': {}}}
     True
     """
+    L2D = {}
+    D = {}
+
+    for i in L2:
+        L2D[i] = {}
+    for i in L1:
+        D[i]=L2D
+    return D
     pass
+
 
 def valueFrom3D(D, K1, K2, K3):
     """
@@ -162,6 +194,7 @@ def valueFrom3D(D, K1, K2, K3):
     >>> valueFrom3D({'singing': {'of': {'mount': 'abora'}}}, 'singing', 'of', 'mount')
     'abora'
     """
+    return D[K1][K2][K3]
     pass
 
 def keysIn2D(D, L1, L2):
@@ -177,6 +210,7 @@ def keysIn2D(D, L1, L2):
     >>> keysIn2D({'xanadu': 'kubla khan'}, ['in', 'xanadu'], ['did', 'kubla khan'])
     True
     """
+    
     pass
 
 class warmup(object):
