@@ -21,6 +21,7 @@ def returnDictionary(D):
     >>> returnDictionary(coleridge) == {'in': 'xanadu', 'did': 'kubla khan'}
     True
     """
+    return D
     pass
 
 def keyInDict(D, K):
