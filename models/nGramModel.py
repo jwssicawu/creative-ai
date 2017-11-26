@@ -92,6 +92,22 @@ class NGramModel(object):
         Effects:  returns a candidate item (a key in the candidates dictionary)
                   based on the algorithm described in the spec.
         """
+        keys = candidates.keys()
+        value = candidates.values()
+        cumCount = []
+        
+        cumValue = 0
+        for i in value:
+            cumValue += i
+            cumCount.append(cumValue)
+
+        num = random.randrange(0, cumCount[-1])
+        print num
+
+        for i in range(0, len(cumCount)):
+            if cumCount[i] > num:
+                return keys[i]
+        
         pass
 
     def getNextToken(self, sentence):
@@ -104,6 +120,8 @@ class NGramModel(object):
                   For more information on how to put all these functions
                   together, see the spec.
         """
+        candidates = self.getCandidateDictionary(sentence)
+        return self.weightedChoice(candidates)
         pass
 
     def getNextNote(self, musicalSentence, possiblePitches):
@@ -118,14 +136,51 @@ class NGramModel(object):
                   For details on how to do this and how this will differ
                   from getNextToken, see the spec.
         """
+        allCand = self.getCandidateDictionary(musicalSentence)
+        constrainedCand = {}
+        pitch = ''
+        
+        for i in allCand:
+            pitch = i[0][0 : -1]
+            if pitch in possiblePitches:
+                constrainedCand[i] = allCand[i]
+            elif i == '$:::$':
+                constrainedCand[i] = allCand[i]
+        
+        # returs True if is not empty
+        if self.constrainedCand:
+            return self.weightChoice(constrainedCand)
+        else:
+            pitch = random.choice(possiblePitches) + '4'
+            duration = random.choice(NOTE_DURATIONS)
+            note = (pitch, duration)
+            return note
         pass
+
+        
 
 ###############################################################################
 # Main
 ###############################################################################
 
 if __name__ == '__main__':
-    # Add your tests here
+    nGramModel = NGramModel()
+    
+    # weightedChoice
+    dic = {'north': 4, 'south': 1, 'east': 3, 'west': 2}
+    print dic
+    print nGramModel.weightedChoice(dic)
+
+    dic = {('e5', 3): 4, ('f#2', 1): 1}
+    print dic
+    print nGramModel.weightedChoice(dic)
+
+    # getNextToken
+    # getNextNote
+    # Since the function getCandidateDictionary is not define in
+    # this file, these two functions are tested in the other files
+    
+    
     text = [ ['the', 'quick', 'brown', 'fox'], ['the', 'lazy', 'dog'] ]
     choices = { 'the': 2, 'quick': 1, 'brown': 1 }
     nGramModel = NGramModel()
